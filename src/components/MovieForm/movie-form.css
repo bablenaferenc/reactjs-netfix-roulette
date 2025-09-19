@@ -1,0 +1,85 @@
+/* Style the form itself */
+form.movie-form {
+  max-width: 976px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #232323;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Each row container */
+form.movie-form > div {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  color: #e50914;
+}
+
+/* First input in row: 70% */
+form.movie-form > div > label:first-child {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Second input in row: 30% */
+form.movie-form > div > label:last-child {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Description row: textarea full width */
+form.movie-form .description {
+  display: flex;
+}
+
+form.movie-form .description label {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #e50914;
+}
+
+/* Inputs and textarea styling */
+form.movie-form input,
+form.movie-form textarea {
+  background-color: #323232;
+  border: unset;
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  color: white;
+}
+
+/* Buttons styling */
+form.movie-form .buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+form.movie-form button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 2px;
+  border: unset;
+  color: #e50914;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-end;
+}
+
+form.movie-form button.reset {
+    border: 1px solid #e50914;
+    background-color: transparent;
+}
+
+form.movie-form button.submit {
+  background: #e50914;
+  color: white;
+}
+
+form.movie-form button:hover {
+  background: #b00610;
+  color: white;
+}
