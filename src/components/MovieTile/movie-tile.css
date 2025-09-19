@@ -2,6 +2,7 @@
 .movie-tile {
     position: relative;
     font-family: "Montserrat", sans-serif;
+    background-color: transparent;
     color: #fff;
     width: 220px;
     padding: 12px;

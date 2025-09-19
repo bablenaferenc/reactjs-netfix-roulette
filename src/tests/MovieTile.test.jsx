@@ -32,7 +32,7 @@ describe("MovieTile component", () => {
     const onEdit = vi.fn();
     render(<MovieTile movie={movie} onEdit={onEdit} isAdmin={true} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    fireEvent.click(screen.getByRole("button", { name: "Open menu Inception" }));
     fireEvent.click(screen.getByText("Edit"));
 
     expect(onEdit).toHaveBeenCalledWith(movie);
@@ -42,7 +42,7 @@ describe("MovieTile component", () => {
     const onDelete = vi.fn();
     render(<MovieTile movie={movie} onDelete={onDelete} isAdmin={true} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    fireEvent.click(screen.getByRole("button", { name: "Open menu Inception" }));
     fireEvent.click(screen.getByText("Delete"));
 
     expect(onDelete).toHaveBeenCalledWith(movie);
