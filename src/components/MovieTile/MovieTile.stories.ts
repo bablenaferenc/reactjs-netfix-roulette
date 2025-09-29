@@ -36,6 +36,9 @@ export const Default: Story = {
       name: 'Sample Movie',
       releaseYear: 2023,
       genres: ['Action', 'Drama'],
+      rating: 5,
+      duration: '1h 30m',
+      description: 'This is the description text'
     },
   },
 };

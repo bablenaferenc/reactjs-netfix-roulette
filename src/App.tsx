@@ -1,42 +1,22 @@
 import { useState } from "react";
 import "./App.css";
-import Counter from "./components/Counter";
 import GenreSelect from "./components/GenreSelect";
 import SearchForm from "./components/SearchForm";
 import MovieTile from "./components/MovieTile/MovieTile";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
-import Dialog from "./components/Dialog/Dialog";
-import MovieForm from "./components/MovieForm/MovieForm";
-
-export type Movie = {
-  id: string | number;
-  imageUrl: string;
-  name: string;
-  releaseYear: number;
-  genres: string[];
-  rating: number;
-  duration: string;
-  description: string;
-};
+import EditDialog from "./components/EditDialog/EditDialog";
+import DeleteDialog from "./components/DeleteDialog/DeleteDialog";
+import type { Movie } from "./models/movie.type";
 
 function App() {
-  const count = 0;
-  const [selected, setSelected] = useState<string | undefined>("Action");
+  const [selected, setSelected] = useState<string | null>("Action");
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>(
-    undefined
-  );
-  const [dialogTitle, setDialogTitle] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const [showDialog, setShowDialog] = useState(false);
 
-  const [movieForEdit, setMovieForEdit] = useState<Movie | undefined>(
-    undefined
-  );
-
-  const [dialogMode, setDialogMode] = useState<"edit" | "delete" | undefined>(
-    undefined
-  );
+  const [movieForEdit, setMovieForEdit] = useState<Movie | null>(null);
+  const [movieForDelete, setMovieForDelete] = useState<Movie | null>(null);
 
   const movies: Movie[] = [
     {
@@ -71,17 +51,44 @@ function App() {
     },
   ];
 
+  const closeAllDialogs = () => {
+    setShowDialog(false);
+    setMovieForDelete(null);
+    setMovieForEdit(null);
+  };
+
+  const handleEdit = (movie: Movie | null) => {
+    closeAllDialogs();
+    console.log("Edit movie:", movie);
+  };
+
+  const handleDelete = (movie: Movie | null) => {
+    closeAllDialogs();
+    console.log("Delete movie", movie);
+  };
+
+  const openDialog = (mode: string, movie: Movie) => {
+    if (mode === "edit") {
+      setMovieForEdit(movie);
+    }
+
+    if (mode === "delete") {
+      setMovieForDelete(movie);
+    }
+
+    setShowDialog(true);
+  };
+
   return (
     <>
       {selectedMovie ? (
         <MovieDetails
           movie={selectedMovie}
-          onClick={() => setSelectedMovie(undefined)}
+          onClick={() => setSelectedMovie(null)}
         />
       ) : (
         <div>Menu</div>
       )}
-      <Counter initialValue={count} />
       <SearchForm initialQuery="" onSearch={(query) => console.log(query)} />
       <GenreSelect
         genres={["Action", "Comedy", "Drama"]}
@@ -97,52 +104,20 @@ function App() {
             key={movie.id}
             movie={movie}
             onClick={(movie) => setSelectedMovie(movie as Movie)}
-            onEdit={(movie) => {
-              setDialogTitle(`Edit ${movie.name}`);
-              setShowDialog(true);
-              setMovieForEdit(movie as Movie);
-              setDialogMode("edit");
-            }}
-            onDelete={(movie) => {
-              setDialogTitle(`Delete ${movie.name}`);
-              setShowDialog(true);
-              setMovieForEdit(movie as Movie);
-              setDialogMode("delete");
-            }}
+            onEdit={(movie) => openDialog("edit", movie)}
+            onDelete={(movie) => openDialog("delete", movie)}
           />
         ))}
       </main>
-      <Dialog
-        isOpen={showDialog}
-        onClose={() => {
-          setShowDialog(false);
-        }}
-        title={dialogTitle}
-      >
-        {dialogMode === "edit" && movieForEdit && (
-          <MovieForm
-            movie={movieForEdit}
-            formSubmit={(data: Movie) => {
-              console.log("Edited movie:", data);
-              setShowDialog(false);
-            }}
-          />
-        )}
-        {dialogMode === "delete" && movieForEdit && (
-          <div>
-            <p>Are you sure you want to delete {movieForEdit.name}?</p>
-            <button
-              onClick={() => {
-                console.log("Deleted movie:", movieForEdit);
-                setShowDialog(false);
-              }}
-            >
-              Yes, Delete
-            </button>
-            <button onClick={() => setShowDialog(false)}>Cancel</button>
-          </div>
-        )}
-      </Dialog>
+      {showDialog && movieForEdit && (
+        <EditDialog movie={movieForEdit} onClose={handleEdit}></EditDialog>
+      )}
+      {showDialog && movieForDelete && (
+        <DeleteDialog
+          movie={movieForDelete}
+          onClose={handleDelete}
+        ></DeleteDialog>
+      )}
     </>
   );
 }

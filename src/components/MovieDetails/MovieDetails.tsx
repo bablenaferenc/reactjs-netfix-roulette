@@ -1,16 +1,6 @@
 import React from "react";
 import "./movie-details.css";
-
-export type Movie = {
-  id: string | number;
-  imageUrl: string;
-  name: string;
-  releaseYear: number;
-  genres: string[];
-  rating: number;
-  duration: string;
-  description: string;
-};
+import type { Movie } from "../../models/movie.type";
 
 type MovieDetailsProps = {
   movie: Movie;

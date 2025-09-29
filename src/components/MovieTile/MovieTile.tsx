@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import "./movie-tile.css";
-
-export type Movie = {
-  id: string | number;
-  imageUrl: string;
-  name: string;
-  releaseYear: number;
-  genres: string[];
-};
+import type { Movie } from "../../models/movie.type";
 
 interface MovieTileProps {
   movie: Movie;

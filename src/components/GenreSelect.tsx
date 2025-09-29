@@ -2,12 +2,12 @@ import React from "react";
 
 interface GenreSelectProps {
   genres: string[];
-  selectedGenre?: string;
+  selectedGenre: string | null;
   onSelect?: (genre: string) => void;
 }
 
 class GenreSelect extends React.Component<GenreSelectProps> {
-  state: { selectedGenre: string };
+  state: { selectedGenre: string | null };
   constructor(props: GenreSelectProps) {
     super(props);
     this.state = {

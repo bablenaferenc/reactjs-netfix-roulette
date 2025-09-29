@@ -16,7 +16,7 @@
     transition: transform 0.2s;
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
     
     img {
@@ -56,7 +56,7 @@
         top: 16px;
         right: 16px;
         width: 32px;
-        height: 32px;
+        padding: 4px 0;
         background: #232323;
         border: none;
         border-radius: 50%;

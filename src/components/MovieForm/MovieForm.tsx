@@ -1,6 +1,6 @@
-import type { Movie } from "../MovieDetails/MovieDetails";
 import React, { useState } from "react";
 import "./movie-form.css";
+import type { Movie } from "../../models/movie.type";
 
 export interface MovieFormProps {
   movie: Movie;
