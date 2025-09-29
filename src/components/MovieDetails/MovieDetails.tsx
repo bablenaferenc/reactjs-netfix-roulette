@@ -18,6 +18,7 @@ type MovieDetailsProps = {
 };
 
 const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, onClick }) => {
+  const genres = movie.genres.join(" & ");
   return (
     <div className="movie-details" onClick={() => onClick(movie)}>
       <img className="poster" src={movie.imageUrl} alt={movie.name} />
@@ -26,7 +27,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, onClick }) => {
           {movie.name}
           <span className="rating">{movie.rating}</span>
         </h2>
-        <div className="genres">{movie.genres.join(" & ")}</div>
+        <div className="genres">{genres}</div>
         <div className="meta">
           <span>{movie.releaseYear}</span>
           <span>{movie.duration}</span>

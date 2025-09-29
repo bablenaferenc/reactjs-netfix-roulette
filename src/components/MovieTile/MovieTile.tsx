@@ -9,12 +9,12 @@ export type Movie = {
   genres: string[];
 };
 
-type MovieTileProps = {
+interface MovieTileProps {
   movie: Movie;
   onClick: (movie: Movie) => void;
   onEdit?: (movie: Movie) => void;
   onDelete?: (movie: Movie) => void;
-};
+}
 
 const MovieTile: React.FC<MovieTileProps> = ({
   movie,
@@ -42,7 +42,12 @@ const MovieTile: React.FC<MovieTileProps> = ({
   };
 
   return (
-    <div className={"movie-tile"} onClick={() => onClick(movie)}>
+    <div
+      role="group"
+      className={"movie-tile"}
+      aria-label={"Open movie details " + movie.name}
+      onClick={() => onClick(movie)}
+    >
       <img src={movie.imageUrl} alt={movie.name} />
       <div className="movie-info">
         <span className="movie-title">{movie.name}</span>
@@ -53,17 +58,25 @@ const MovieTile: React.FC<MovieTileProps> = ({
         className="menu-btn"
         type="button"
         name="open-menu"
-        aria-label="Open menu"
+        aria-label={"Open menu " + movie.name}
         onClick={handleMenuClick}
       >
         &#8942;
       </button>
       {menuOpen && (
         <div className="menu-popup">
-          <button className="menu-item" onClick={handleEdit}>
+          <button
+            className="menu-item"
+            aria-label={"Edit " + movie.name}
+            onClick={handleEdit}
+          >
             Edit
           </button>
-          <button className="menu-item delete" onClick={handleDelete}>
+          <button
+            className="menu-item delete"
+            aria-label={"Delete " + movie.name}
+            onClick={handleDelete}
+          >
             Delete
           </button>
         </div>
