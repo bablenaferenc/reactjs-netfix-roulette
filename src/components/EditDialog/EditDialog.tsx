@@ -15,7 +15,7 @@ const EditDialog: React.FC<MovieDetailsProps> = ({ movie, onClose }) => {
       onClose={() => {
         onClose(null);
       }}
-      title={`Edit ${movie?.name}`}
+      title={`Edit ${movie?.title}`}
     >
       {movie && (
         <MovieForm

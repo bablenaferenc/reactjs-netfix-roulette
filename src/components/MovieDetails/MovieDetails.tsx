@@ -11,18 +11,18 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, onClick }) => {
   const genres = movie.genres.join(" & ");
   return (
     <div className="movie-details" onClick={() => onClick(movie)}>
-      <img className="poster" src={movie.imageUrl} alt={movie.name} />
+      <img className="poster" src={movie.poster_path} alt={movie.title} />
       <div className="info">
         <h2 className="title">
-          {movie.name}
-          <span className="rating">{movie.rating}</span>
+          {movie.title}
+          <span className="vote_average">{movie.vote_average}</span>
         </h2>
         <div className="genres">{genres}</div>
         <div className="meta">
-          <span>{movie.releaseYear}</span>
-          <span>{movie.duration}</span>
+          <span>{movie.release_date as string}</span>
+          <span>{movie.runtime}</span>
         </div>
-        <div className="description">{movie.description}</div>
+        <div className="description">{movie.overview}</div>
       </div>
     </div>
   );

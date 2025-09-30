@@ -14,9 +14,9 @@ const DeleteDialog: React.FC<MovieDetailsProps> = ({ movie, onClose }) => {
       onClose={() => {
         onClose(null);
       }}
-      title={`Delete ${movie?.name}`}
+      title={`Delete ${movie?.title}`}
     >
-      <p>Are you sure you want to delete {movie?.name}?</p>
+      <p>Are you sure you want to delete {movie?.title}?</p>
       <button onClick={() => onClose(movie)}>Yes, Delete</button>
       <button onClick={() => onClose(null)}>Cancel</button>
     </Dialog>

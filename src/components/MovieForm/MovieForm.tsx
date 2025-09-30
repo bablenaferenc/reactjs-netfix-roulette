@@ -30,19 +30,23 @@ const MovieForm: React.FC<MovieFormProps> = ({
           Title
           <input
             type="text"
-            defaultValue={movie.name ?? ""}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            defaultValue={movie.title ?? ""}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
           />
         </label>
         <label>
-          Release date ({movie.releaseYear})
+          Release date ({movie.release_date as string})
           <input
             type="date"
-            defaultValue={movie.releaseYear ? movie.releaseYear + "-01-01" : ""}
+            defaultValue={
+              movie.release_date ? (movie.release_date as string) : ""
+            }
             onChange={(e) =>
               setFormData({
                 ...formData,
-                releaseYear: Number(e.target.value.split("-")[0]),
+                release_date: e.target.value,
               })
             }
           />
@@ -53,22 +57,25 @@ const MovieForm: React.FC<MovieFormProps> = ({
           Image URL
           <input
             type="text"
-            defaultValue={movie.imageUrl ?? ""}
+            defaultValue={movie.poster_path ?? ""}
             onChange={(e) =>
-              setFormData({ ...formData, imageUrl: e.target.value })
+              setFormData({ ...formData, poster_path: e.target.value })
             }
           />
         </label>
         <label>
-          Rating
+          vote_average
           <input
             type="number"
-            defaultValue={movie.rating ?? 0}
+            defaultValue={movie.vote_average ?? 0}
             min={0}
             max={10}
             step={0.1}
             onChange={(e) =>
-              setFormData({ ...formData, rating: parseFloat(e.target.value) })
+              setFormData({
+                ...formData,
+                vote_average: parseFloat(e.target.value),
+              })
             }
           />
         </label>
@@ -91,9 +98,9 @@ const MovieForm: React.FC<MovieFormProps> = ({
           Runtime
           <input
             type="text"
-            defaultValue={movie.duration ?? ""}
+            defaultValue={movie.runtime ?? ""}
             onChange={(e) =>
-              setFormData({ ...formData, duration: e.target.value })
+              setFormData({ ...formData, runtime: e.target.value })
             }
           />
         </label>
@@ -102,9 +109,9 @@ const MovieForm: React.FC<MovieFormProps> = ({
         <label>
           Description
           <textarea
-            defaultValue={movie.description ?? ""}
+            defaultValue={movie.overview ?? ""}
             onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
+              setFormData({ ...formData, overview: e.target.value })
             }
           />
         </label>

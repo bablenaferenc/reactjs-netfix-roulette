@@ -32,13 +32,13 @@ export const Default: Story = {
   args: {
     movie: {
       id: 1,
-      imageUrl: 'https://placehold.co/600x400',
-      name: 'Sample Movie',
-      releaseYear: 2023,
+      poster_path: 'https://placehold.co/600x400',
+      title: 'Sample Movie',
+      release_date: '2023-02-02',
       genres: ['Action', 'Drama'],
-      rating: 5,
-      duration: '1h 30m',
-      description: 'This is the description text'
+      vote_average: 5,
+      runtime: '1h 30m',
+      overview: 'This is the description text'
     },
   },
 };
