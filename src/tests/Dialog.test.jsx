@@ -19,9 +19,8 @@ afterAll(() => {
 
 describe('Modal with React Portal and FocusTrap', () => {
   it('renders without crashing', () => {
-    const div = document.createElement('div');
-    const rendered = render(<App />, div);
-    const button = rendered.getByRole('group', { name: 'Open movie details Inception' });
+    const {getByRole} = render(<App />)
+    const button = getByRole('group', { name: 'Open movie details Inception' });
     expect(button).toBeInTheDocument();
   });
 

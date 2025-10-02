@@ -3,8 +3,8 @@ import GenreSelect from "../../components/GenreSelect";
 import SearchForm from "../../components/SearchForm";
 import MovieTile from "../../components/MovieTile/MovieTile";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
-import EditDialog from "../../components/EditDialog/EditDialog";
-import DeleteDialog from "../../components/DeleteDialog/DeleteDialog";
+import EditDialog from ".//EditDialog/EditDialog";
+import DeleteDialog from "./DeleteDialog/DeleteDialog";
 import { SortControl } from "../../components/SortControl/SortControl";
 import type { Movie } from "../../models/movie.type";
 import axios from "axios";
@@ -37,15 +37,13 @@ function MovieListPage() {
     console.log("Delete movie", movie);
   };
 
-  const openDialog = (mode: string, movie: Movie) => {
-    if (mode === "edit") {
-      setMovieForEdit(movie);
-    }
+  const onOpenEditDialog = (movie: Movie) => {
+    setMovieForEdit(movie);
+    setShowDialog(true);
+  };
 
-    if (mode === "delete") {
-      setMovieForDelete(movie);
-    }
-
+  const onOpenDeleteDialog = (movie: Movie) => {
+    setMovieForDelete(movie);
     setShowDialog(true);
   };
 
@@ -113,8 +111,8 @@ function MovieListPage() {
               key={movie.id}
               movie={movie}
               onClick={(movie) => setSelectedMovie(movie as Movie)}
-              onEdit={(movie) => openDialog("edit", movie)}
-              onDelete={(movie) => openDialog("delete", movie)}
+              onEdit={(movie) => onOpenEditDialog(movie)}
+              onDelete={(movie) => onOpenDeleteDialog(movie)}
             />
           ))}
       </main>

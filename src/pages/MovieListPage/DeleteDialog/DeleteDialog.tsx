@@ -1,6 +1,6 @@
 import React from "react";
-import Dialog from "../Dialog/Dialog";
-import type { Movie } from "../../models/movie.type";
+import Dialog from "../../../components/Dialog/Dialog";
+import type { Movie } from "../../../models/movie.type";
 
 type MovieDetailsProps = {
   movie: Movie | null;
