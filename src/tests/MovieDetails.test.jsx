@@ -5,10 +5,10 @@ import MovieDetails from "../components/MovieDetails/MovieDetails";
 describe("MovieDetails component", () => {
   const movie = {
     name: "Inception",
-    releaseYear: "2010",
+    release_date: "2010-01-01",
     genres: ["Action", "Sci-Fi"],
     director: "Christopher Nolan",
-    description: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    overview: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
     imgUrl: "https://example.com/inception.jpg"
   };
 

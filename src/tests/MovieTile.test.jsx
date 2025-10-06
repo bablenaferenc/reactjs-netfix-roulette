@@ -5,10 +5,10 @@ import MovieTile from "../components/MovieTile/MovieTile";
 describe("MovieTile component", () => {
   const movie = {
     name: "Inception",
-    releaseYear: "2010",
+    release_date: "2010-03-03",
     genres: ["Action", "Sci-Fi"],
-    description: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
-    imageUrl: "https://example.com/inception.jpg"
+    overview: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    poster_path: "https://example.com/inception.jpg"
   };
 
   it("renders value provided in props", () => {

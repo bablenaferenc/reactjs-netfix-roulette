@@ -1,0 +1,26 @@
+import React from "react";
+import Dialog from "../../../components/Dialog/Dialog";
+import type { Movie } from "../../../models/movie.type";
+
+type MovieDetailsProps = {
+  movie: Movie | null;
+  onClose: (movie: Movie | null) => void;
+};
+
+const DeleteDialog: React.FC<MovieDetailsProps> = ({ movie, onClose }) => {
+  return (
+    <Dialog
+      isOpen
+      onClose={() => {
+        onClose(null);
+      }}
+      title={`Delete ${movie?.title}`}
+    >
+      <p>Are you sure you want to delete {movie?.title}?</p>
+      <button onClick={() => onClose(movie)}>Yes, Delete</button>
+      <button onClick={() => onClose(null)}>Cancel</button>
+    </Dialog>
+  );
+};
+
+export default DeleteDialog;

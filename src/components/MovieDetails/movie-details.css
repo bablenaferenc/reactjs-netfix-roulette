@@ -30,7 +30,7 @@
     text-transform: uppercase;
 }
 
-.rating {
+.vote_average {
     display: inline-block;
     position: absolute;
     width: 2rem;

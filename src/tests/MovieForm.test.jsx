@@ -5,11 +5,11 @@ import MovieForm from "../components/MovieForm/MovieForm";
 describe("MovieForm component", () => {
   const movie = {
     name: "Inception",
-    releaseYear: "2010",
+    release_date: "2010-02-02",
     genres: ["Action", "Sci-Fi"],
-    rating: 8.8,
-    duration: "148 min",
-    description: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+    vote_average: 8.8,
+    runtime: "148 min",
+    overview: "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
     imgUrl: "https://example.com/inception.jpg"
   };
 
