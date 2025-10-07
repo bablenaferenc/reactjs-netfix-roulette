@@ -3,14 +3,20 @@ import "./movie-details.css";
 import type { Movie } from "../../models/movie.type";
 
 type MovieDetailsProps = {
-  movie: Movie;
+  movie: Movie | null;
   onClick: (movie: Movie) => void;
 };
 
 const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, onClick }) => {
+  if (!movie) return <div>There is no movie to display.</div>;
+
   const genres = movie.genres.join(" & ");
+
   return (
     <div className="movie-details" onClick={() => onClick(movie)}>
+      <button className="close-btn" aria-label="Close">
+        X
+      </button>
       <img className="poster" src={movie.poster_path} alt={movie.title} />
       <div className="info">
         <h2 className="title">

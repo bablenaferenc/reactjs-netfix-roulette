@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
-import GenreSelect from "../../components/GenreSelect";
-import SearchForm from "../../components/SearchForm";
 import MovieTile from "../../components/MovieTile/MovieTile";
-import MovieDetails from "../../components/MovieDetails/MovieDetails";
 import EditDialog from ".//EditDialog/EditDialog";
 import DeleteDialog from "./DeleteDialog/DeleteDialog";
-import { SortControl } from "../../components/SortControl/SortControl";
 import type { Movie } from "../../models/movie.type";
 import axios from "axios";
+import { Outlet, useLocation, useSearchParams } from "react-router-dom";
 
 function MovieListPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeGenre, setActiveGenre] = useState<string | null>("Action");
-  const [sortCriterion, setSortCriterion] = useState<string>("");
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   const [showDialog, setShowDialog] = useState(false);
   const [movieForEdit, setMovieForEdit] = useState<Movie | null>(null);
@@ -54,10 +49,10 @@ function MovieListPage() {
       try {
         const response = await axios.get("http://localhost:4000/movies", {
           params: {
-            search: searchQuery,
+            search: searchParams.get("search"),
             searchBy: "title",
-            sortBy: sortCriterion,
-            filter: activeGenre,
+            sortBy: searchParams.get("sort"),
+            filter: searchParams.get("genre"),
             limit: 50,
           },
           signal: controller.signal,
@@ -83,39 +78,25 @@ function MovieListPage() {
     return () => {
       controller.abort();
     };
-  }, [searchQuery, activeGenre, sortCriterion]);
+  }, [location]);
 
   return (
-    <>
-      {selectedMovie ? (
-        <MovieDetails
-          movie={selectedMovie}
-          onClick={() => setSelectedMovie(null)}
-        />
-      ) : (
-        <div>Menu</div>
-      )}
-      <SearchForm initialQuery={searchQuery} onSearch={setSearchQuery} />
-      <GenreSelect
-        genres={["Action", "Comedy", "Drama", "Romance"]}
-        selectedGenre={activeGenre}
-        onSelect={(genre) => {
-          setActiveGenre(genre);
-        }}
-      />
-      <SortControl current={sortCriterion} onSelect={setSortCriterion} />
+    <div>
+      <div>
+        <Outlet />
+      </div>
       <main>
         {movies &&
           movies.map((movie) => (
             <MovieTile
               key={movie.id}
               movie={movie}
-              onClick={(movie) => setSelectedMovie(movie as Movie)}
               onEdit={(movie) => onOpenEditDialog(movie)}
               onDelete={(movie) => onOpenDeleteDialog(movie)}
             />
           ))}
       </main>
+
       {showDialog && movieForEdit && (
         <EditDialog movie={movieForEdit} onClose={handleEdit}></EditDialog>
       )}
@@ -125,7 +106,7 @@ function MovieListPage() {
           onClose={handleDelete}
         ></DeleteDialog>
       )}
-    </>
+    </div>
   );
 }
 

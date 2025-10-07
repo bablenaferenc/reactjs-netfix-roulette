@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import "./movie-tile.css";
 import type { Movie } from "../../models/movie.type";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface MovieTileProps {
   movie: Movie;
-  onClick: (movie: Movie) => void;
   onEdit?: (movie: Movie) => void;
   onDelete?: (movie: Movie) => void;
 }
 
-const MovieTile: React.FC<MovieTileProps> = ({
-  movie,
-  onClick,
-  onEdit,
-  onDelete,
-}) => {
+const MovieTile: React.FC<MovieTileProps> = ({ movie, onEdit, onDelete }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const openDetails = () => {
+    navigate("/details/" + movie.id + location.search);
+  };
 
   const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -39,7 +40,7 @@ const MovieTile: React.FC<MovieTileProps> = ({
       role="group"
       className={"movie-tile"}
       aria-label={"Open movie details " + movie.title}
-      onClick={() => onClick(movie)}
+      onClick={openDetails}
     >
       <img src={movie.poster_path} alt={movie.title} />
       <div className="movie-info">
