@@ -13,8 +13,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, onClick }) => {
   const genres = movie.genres.join(" & ");
 
   return (
-    <div className="movie-details" onClick={() => onClick(movie)}>
-      <button className="close-btn" aria-label="Close">
+    <div className="movie-details">
+      <button
+        className="close-btn"
+        aria-label="Close"
+        onClick={() => onClick(movie)}
+      >
         X
       </button>
       <img className="poster" src={movie.poster_path} alt={movie.title} />

@@ -3,13 +3,18 @@ import "./App.css";
 import MovieListPage from "./pages/MovieListPage/MovieListPage";
 import ShowMovie from "./pages/MovieListPage/ShowMovieDetails/ShowMovieDetails";
 import QueryForm from "./pages/MovieListPage/QueryForm/QueryForm";
+import AddMovieForm from "./pages/MovieListPage/AddMovieForm/AddMovieForm";
+import EditDialog from "./pages/MovieListPage/EditDialog/EditDialog";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<MovieListPage />}>
-        <Route path="/" element={<QueryForm />} />
+        <Route path="/" element={<QueryForm />}>
+          <Route path="/new" element={<AddMovieForm />} />
+        </Route>
         <Route path="/details/:movieId" element={<ShowMovie />} />
+        <Route path="/:movieId/edit" element={<EditDialog />} />
       </Route>
     </Routes>
   );

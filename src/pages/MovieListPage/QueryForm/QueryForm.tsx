@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  NavLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import GenreSelect from "../../../components/GenreSelect";
 import { SortControl } from "../../../components/SortControl/SortControl";
 import SearchForm from "../../../components/SearchForm";
@@ -7,10 +13,18 @@ import "./query-form.css";
 
 function QueryForm() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search"));
+
+  const getGenre = (value: string | null): string => {
+    if (!value || value === "All") return "";
+
+    return value;
+  };
   const [activeGenre, setActiveGenre] = useState<string | null>(
-    searchParams.get("genre") || ""
+    getGenre(searchParams.get("genre"))
   );
   const [sortCriterion, setSortCriterion] = useState<string>(
     searchParams.get("sort") || ""
@@ -21,7 +35,7 @@ function QueryForm() {
     setSearchParams({
       search: value,
       sort: sortCriterion,
-      genre: activeGenre || "",
+      genre: getGenre(activeGenre),
     });
   };
 
@@ -30,7 +44,7 @@ function QueryForm() {
     setSearchParams({
       search: searchQuery || "",
       sort: value,
-      genre: activeGenre || "",
+      genre: getGenre(activeGenre),
     });
   };
 
@@ -39,19 +53,33 @@ function QueryForm() {
     setSearchParams({
       search: searchQuery || "",
       sort: sortCriterion,
-      genre: value,
+      genre: getGenre(value),
     });
   };
 
   return (
     <div className="query-form">
+      <div className="space-between">
+        <NavLink to="/">
+          <strong>netflix</strong>roulette
+        </NavLink>
+        <button
+          onClick={() => navigate("/new" + location.search)}
+          className="add-movie"
+        >
+          + Add movie
+        </button>
+      </div>
       <SearchForm initialQuery={searchQuery || ""} onSearch={handleSearch} />
-      <GenreSelect
-        genres={["Action", "Comedy", "Drama", "Romance"]}
-        selectedGenre={activeGenre}
-        onSelect={handleGenre}
-      />
-      <SortControl current={sortCriterion} onSelect={handleSort} />
+      <div className="space-between">
+        <GenreSelect
+          genres={["All", "Action", "Comedy", "Drama", "Romance"]}
+          selectedGenre={activeGenre}
+          onSelect={handleGenre}
+        />
+        <SortControl current={sortCriterion} onSelect={handleSort} />
+      </div>
+      <Outlet />
     </div>
   );
 }
