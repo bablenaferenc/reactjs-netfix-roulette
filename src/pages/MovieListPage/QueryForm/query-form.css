@@ -6,7 +6,19 @@
     flex-direction: column;
     justify-content: center;
 
+    .add-movie {
+        height: 3rem;
+        background-color: #e50914ff;
+        color: white;
+        border-radius: 0px;
+    }
     div {
-        height: 150px;
+        height: 100px;
+
+        &.space-between {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }

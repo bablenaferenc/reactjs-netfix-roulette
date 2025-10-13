@@ -43,7 +43,19 @@ class SearchForm extends React.Component<SearchFormProps> {
         placeholder: "Search...",
       }),
       // search gomb
-      React.createElement("button", { onClick: this.triggerSearch }, "Search")
+      React.createElement(
+        "button",
+        {
+          onClick: this.triggerSearch,
+          style: {
+            backgroundColor: "#e50914",
+            color: "white",
+            borderRadius: "4px",
+            marginLeft: "4px",
+          },
+        },
+        "Search"
+      )
     );
   }
 }

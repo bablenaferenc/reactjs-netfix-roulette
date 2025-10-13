@@ -35,8 +35,10 @@ class GenreSelect extends React.Component<GenreSelectProps> {
             key: genre,
             onClick: () => this.handleSelect(genre),
             style: {
-              backgroundColor: genre === selectedGenre ? "#007bff" : "#f0f0f0",
+              backgroundColor: genre === selectedGenre ? "#e50914" : "#f0f0f0",
               color: genre === selectedGenre ? "#fff" : "#000",
+              borderRadius: "4px",
+              marginLeft: "4px",
             },
           },
           genre

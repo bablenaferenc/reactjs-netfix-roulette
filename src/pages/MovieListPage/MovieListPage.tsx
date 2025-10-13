@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import MovieTile from "../../components/MovieTile/MovieTile";
-import EditDialog from ".//EditDialog/EditDialog";
-import DeleteDialog from "./DeleteDialog/DeleteDialog";
 import type { Movie } from "../../models/movie.type";
 import axios from "axios";
 import { Outlet, useLocation, useSearchParams } from "react-router-dom";
@@ -11,36 +9,6 @@ function MovieListPage() {
   const [searchParams] = useSearchParams();
 
   const [movies, setMovies] = useState<Movie[]>([]);
-
-  const [showDialog, setShowDialog] = useState(false);
-  const [movieForEdit, setMovieForEdit] = useState<Movie | null>(null);
-  const [movieForDelete, setMovieForDelete] = useState<Movie | null>(null);
-
-  const closeAllDialogs = () => {
-    setShowDialog(false);
-    setMovieForDelete(null);
-    setMovieForEdit(null);
-  };
-
-  const handleEdit = (movie: Movie | null) => {
-    closeAllDialogs();
-    console.log("Edit movie:", movie);
-  };
-
-  const handleDelete = (movie: Movie | null) => {
-    closeAllDialogs();
-    console.log("Delete movie", movie);
-  };
-
-  const onOpenEditDialog = (movie: Movie) => {
-    setMovieForEdit(movie);
-    setShowDialog(true);
-  };
-
-  const onOpenDeleteDialog = (movie: Movie) => {
-    setMovieForDelete(movie);
-    setShowDialog(true);
-  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -87,25 +55,8 @@ function MovieListPage() {
       </div>
       <main>
         {movies &&
-          movies.map((movie) => (
-            <MovieTile
-              key={movie.id}
-              movie={movie}
-              onEdit={(movie) => onOpenEditDialog(movie)}
-              onDelete={(movie) => onOpenDeleteDialog(movie)}
-            />
-          ))}
+          movies.map((movie) => <MovieTile key={movie.id} movie={movie} />)}
       </main>
-
-      {showDialog && movieForEdit && (
-        <EditDialog movie={movieForEdit} onClose={handleEdit}></EditDialog>
-      )}
-      {showDialog && movieForDelete && (
-        <DeleteDialog
-          movie={movieForDelete}
-          onClose={handleDelete}
-        ></DeleteDialog>
-      )}
     </div>
   );
 }

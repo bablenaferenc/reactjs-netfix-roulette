@@ -5,11 +5,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 interface MovieTileProps {
   movie: Movie;
-  onEdit?: (movie: Movie) => void;
-  onDelete?: (movie: Movie) => void;
 }
 
-const MovieTile: React.FC<MovieTileProps> = ({ movie, onEdit, onDelete }) => {
+const MovieTile: React.FC<MovieTileProps> = ({ movie }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,13 +24,12 @@ const MovieTile: React.FC<MovieTileProps> = ({ movie, onEdit, onDelete }) => {
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
     setMenuOpen(false);
-    onEdit?.(movie);
+    navigate(`/${movie.id}/edit` + location.search);
   };
 
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
     setMenuOpen(false);
-    onDelete?.(movie);
   };
 
   return (

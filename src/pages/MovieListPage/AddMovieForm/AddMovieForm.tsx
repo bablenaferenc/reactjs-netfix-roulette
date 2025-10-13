@@ -1,53 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Dialog from "../../../components/Dialog/Dialog";
 import MovieForm from "../../../components/MovieForm/MovieForm";
+import { useLocation, useNavigate } from "react-router-dom";
 import type { Movie } from "../../../models/movie.type";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-const EditDialog: React.FC = () => {
-  const { movieId } = useParams();
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-
+const AddMovieForm: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchMovie = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:4000/movies/" + movieId,
-          {
-            params: {},
-            signal: controller.signal,
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        setSelectedMovie(response.data);
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.log("Previous request cancelled.");
-        } else {
-          console.error("Error fetching movie:", error);
-        }
-      }
-    };
-
-    fetchMovie();
-
-    return () => {
-      controller.abort();
-    };
-  }, [movieId]);
-
   const handleSubmit = (movie: Movie) => {
     const controller = new AbortController();
-
+    console.log("Genre", typeof movie.genres);
     let genres: string[] = movie.genres;
 
     if (typeof movie.genres === "string") {
@@ -55,10 +18,10 @@ const EditDialog: React.FC = () => {
         .split(", ")
         .map((el) => el.trim());
     }
-    console.log("xx id", movieId);
+
     const fetchMovie = async () => {
       try {
-        const response = await axios.put(
+        const response = await axios.post(
           "http://localhost:4000/movies",
           {
             poster_path: movie.poster_path,
@@ -68,7 +31,6 @@ const EditDialog: React.FC = () => {
             vote_average: Number(movie.vote_average),
             runtime: Number(movie.runtime),
             overview: movie.overview,
-            id: Number(movieId),
           },
           {
             signal: controller.signal,
@@ -99,16 +61,11 @@ const EditDialog: React.FC = () => {
     <Dialog
       isOpen
       onClose={() => navigate("/" + location.search)}
-      title={`Edit ${selectedMovie?.title}`}
+      title={`Add a new movie`}
     >
-      {selectedMovie && (
-        <MovieForm
-          movie={selectedMovie}
-          formSubmit={(changedMovie) => handleSubmit(changedMovie)}
-        />
-      )}
+      <MovieForm movie={null} formSubmit={handleSubmit} />
     </Dialog>
   );
 };
 
-export default EditDialog;
+export default AddMovieForm;
