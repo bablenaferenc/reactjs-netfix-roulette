@@ -1,7 +1,7 @@
 import React from "react";
-import Dialog from "../Dialog/Dialog";
-import MovieForm from "../MovieForm/MovieForm";
-import type { Movie } from "../../models/movie.type";
+import Dialog from "../../../components/Dialog/Dialog";
+import MovieForm from "../../../components/MovieForm/MovieForm";
+import type { Movie } from "../../../models/movie.type";
 
 type MovieDetailsProps = {
   movie: Movie | null;
